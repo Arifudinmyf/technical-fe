@@ -1,0 +1,92 @@
+<div class="p-8">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Employee List Arifudin</h2>
+    <div class="mb-4 flex gap-4 flex-wrap">
+    <mat-form-field appearance="fill" class="w-64">
+      <mat-label>Search Name</mat-label>
+      <input matInput [(ngModel)]="searchUsername" (ngModelChange)="applyFilter()" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Search Group</mat-label>
+      <input matInput [(ngModel)]="searchgroup" (ngModelChange)="applyFilter()" />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="navigateToAdd()">Add Employee</button>
+  </div>
+    <mat-card class="w-full overflow-x-auto shadow-lg">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-full">
+
+            <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+                <td mat-cell *matCellDef="let el">{{ el.username }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef>First Name</th>
+                <td mat-cell *matCellDef="let el">{{ el.firstName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef>Last Name</th>
+                <td mat-cell *matCellDef="let el">{{ el.lastName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td mat-cell *matCellDef="let el">{{ el.email }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="birthDate">
+                <th mat-header-cell *matHeaderCellDef>Birth Date</th>
+                <td mat-cell *matCellDef="let el">{{ el.birthDate | date }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="basicSalary">
+                <th mat-header-cell *matHeaderCellDef>Basic Salary</th>
+                <td mat-cell *matCellDef="let el">{{ el.basicSalary | currency:'IDR' }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let el">{{ el.status }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="group">
+                <th mat-header-cell *matHeaderCellDef>Group</th>
+                <td mat-cell *matCellDef="let el">{{ el.group }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>Description</th>
+                <td mat-cell *matCellDef="let el">{{ el.description }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>Action</th>
+                <td mat-cell *matCellDef="let el">
+                    <button mat-icon-button class="text-blue-600 font-semibold py-2 px-6 rounded hover:bg-blue-200"
+                        (click)="onDetail(el)">
+                        <mat-icon class="text-blue-600">visibility</mat-icon>
+                    </button>
+                    <button mat-icon-button class="text-black font-semibold py-2 px-6 rounded hover:bg-yellow-200"
+                        (click)="onEdit(el)">
+                        <mat-icon class="text-yellow-500">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button class="text-white font-semibold py-2 px-6 rounded hover:bg-red-200"
+                        (click)="onDelete(el)">
+                        <mat-icon class="text-red-600">delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="pageOptions"
+            [pageSize]="queryParams.pageSize"
+            [pageIndex]="queryParams.pageIndex" 
+            showFirstLastButtons>
+        </mat-paginator>
+    </mat-card>
+</div>
